@@ -128,7 +128,7 @@ class Okno extends JFrame {
         setSize(700,400);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Producent/Konsument GUI");
+        setTitle("Producent/Konsument GUI  ");
          setVisible(true);
     }
 
