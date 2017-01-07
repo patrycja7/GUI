@@ -32,6 +32,8 @@ do zrobienia:
 - ustalenie limitu wątkow jakie mogą działać ???,
 
 - ewentualna poprawa gui,
+
+- dodanie przycisku "reset"
 -???
 
 
