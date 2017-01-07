@@ -21,13 +21,12 @@ public class Magazyn {
     public void skonsumuj(){
         synchronized (polka){
             
-            try{
-                if (semKon.tryAcquire() == false)
-                    polka.wait();
-                
+            try{               
+                semKon.acquire();
+                Thread.sleep((long)(Math.random() * 2000));
                 skonsumowano++;
                 polka.remove(0);
-                Thread.sleep((long)(Math.random() * 2000));
+                //Thread.sleep((long)(Math.random() * 2000));
             }catch (Exception e){} 
         }       
     } 
@@ -41,9 +40,10 @@ public class Magazyn {
                 polka.add(t);
                 wyprodukowano++;
                 Thread.sleep((long)(Math.random() * 1000));
-                polka.notifyAll();   
+                polka.notifyAll();  
             }catch (Exception e){   
             }finally{
+                
                 semKon.release();
             }
         }  
