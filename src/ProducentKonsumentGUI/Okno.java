@@ -15,13 +15,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
-class Okno extends JFrame {
+class Okno extends JFrame implements ActionListener {
     
+    public static int producent = 0;
     private JButton bDodajK, bDodajP, bWyjdz;
     private JPanel liniaG, liniaD, kwadrat, kolo;
-    private JLabel lProducent, lKonsument,lProdukcja,lKonsumpcja;
+    private JLabel lProducent, lKonsument;
+    public static JLabel lProdukcja,lKonsumpcja, lIloscP, lIloscK;
     private JLabel lWyprodukowano, lSkonsumowano;
-    private JLabel lPostepP, lPostepK, lWP,lWK;
+    private JLabel lWP,lWK;
     public  Okno(){
         setLayout(null);
         
@@ -37,12 +39,12 @@ class Okno extends JFrame {
 	add(kwadrat);
         pack();
         
-        lPostepP = new JLabel("");
-        lPostepP.setText("0");      
-        lPostepP.setForeground(Color.BLACK);
-        lPostepP.setFont(new Font("Arial", Font.BOLD, 20));
-        lPostepP.setBounds(35, 65, 100, 50);
-        add(lPostepP);
+        lIloscP = new JLabel("");
+        lIloscP.setText("0");      
+        lIloscP.setForeground(Color.BLACK);
+        lIloscP.setFont(new Font("Arial", Font.BOLD, 20));
+        lIloscP.setBounds(35, 65, 100, 50);
+        add(lIloscP);
         
         lWP = new JLabel("");
         lWP.setText("Running");      
@@ -73,12 +75,12 @@ class Okno extends JFrame {
 	add(kolo);
         pack();
         
-        lPostepK = new JLabel("");
-        lPostepK.setText("0");      
-        lPostepK.setForeground(Color.BLACK);
-        lPostepK.setFont(new Font("Arial", Font.BOLD, 20));
-        lPostepK.setBounds(590, 65, 100, 50);
-        add(lPostepK);
+        lIloscK = new JLabel("");
+        lIloscK.setText("0");      
+        lIloscK.setForeground(Color.BLACK);
+        lIloscK.setFont(new Font("Arial", Font.BOLD, 20));
+        lIloscK.setBounds(590, 65, 100, 50);
+        add(lIloscK);
         
         lWK = new JLabel("");
         lWK.setText("Running");      
@@ -90,16 +92,17 @@ class Okno extends JFrame {
         bDodajK = new JButton("add Consumer ");
         bDodajK.setBounds(0, 300, 150, 45);
         add(bDodajK);
-       // bDodajK.addActionListener(this);
+        bDodajK.addActionListener(this);
      
         bDodajP = new JButton("add Producer");
         bDodajP.setBounds(160, 300, 150, 45);
         add(bDodajP);
+        bDodajP.addActionListener(this);
         
         bWyjdz = new JButton("Quit");
         bWyjdz.setBounds(320, 300, 100, 45);
         add(bWyjdz);
-        
+        bWyjdz.addActionListener(this);
         lWyprodukowano = new JLabel("");
         lWyprodukowano.setText("Produce:");
         lWyprodukowano.setForeground(Color.BLACK);
@@ -132,9 +135,28 @@ class Okno extends JFrame {
          setVisible(true);
     }
 
-    //@Override
-    //public void actionPerformed(ActionEvent e) {
-      //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-   // }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object source = e.getSource();
+        Magazyn magazyn = new Magazyn();
+        if (source == bDodajK )
+        {
+            new Konsument(magazyn).start();
+            
+            //lIloscK.setText(konsument + "");
+            
+        }
+        else if (source == bDodajP)
+        {
+            new Producent(magazyn).start(); 
+            producent++;
+            lIloscP.setText(producent + "");
+        }
+        else if(source == bWyjdz)
+        {
+            dispose();
+        }
+        
+    }
         
 }
