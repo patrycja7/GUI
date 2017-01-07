@@ -11,8 +11,7 @@ public class Producent extends Thread {
     
     public Producent (Magazyn p){
         
-        polka = p;
-            
+        polka = p;         
     }
     
     public void run(){

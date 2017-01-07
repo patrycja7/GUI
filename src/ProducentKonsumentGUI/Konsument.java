@@ -16,13 +16,16 @@ public class Konsument extends Thread {
     
     public void run(){
         
-        while(true)
+        for(int i = 0; i < 3; i++)
         {
             try{
                 polka.skonsumuj();
+                Okno.lKonsumpcja.setText(polka.skonsumowano + "");
 	        Thread.sleep( (int)(Math.random() * 1000) );   
             }catch (InterruptedException e) {}  
-        }     
+        }
+        Okno.konsument--;
+        Okno.lIloscK.setText(Okno.konsument + "");
     }
     
 }

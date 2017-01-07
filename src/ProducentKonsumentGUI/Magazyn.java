@@ -13,7 +13,7 @@ import java.util.concurrent.Semaphore;
 public class Magazyn {
     private static  LinkedList<String> polka;
     private static Semaphore semKon = new Semaphore(0);
-    public static int wyprodukowano = 0;
+    public static int wyprodukowano = 0, skonsumowano = 0;
     public Magazyn(){
         polka = new LinkedList<String>();
     }
@@ -25,9 +25,9 @@ public class Magazyn {
                 if (semKon.tryAcquire() == false)
                     polka.wait();
                 
-                Thread.sleep((long)(Math.random() * 2000));
+                skonsumowano++;
                 polka.remove(0);
-   
+                Thread.sleep((long)(Math.random() * 2000));
             }catch (Exception e){} 
         }       
     } 

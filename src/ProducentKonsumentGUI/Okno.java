@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 
 class Okno extends JFrame implements ActionListener {
     
-    public static int producent = 0;
+    public static int producent = 0, konsument = 0;
     private JButton bDodajK, bDodajP, bWyjdz;
     private JPanel liniaG, liniaD, kwadrat, kolo;
     private JLabel lProducent, lKonsument;
@@ -142,9 +142,8 @@ class Okno extends JFrame implements ActionListener {
         if (source == bDodajK )
         {
             new Konsument(magazyn).start();
-            
-            //lIloscK.setText(konsument + "");
-            
+            konsument++;
+            lIloscK.setText(konsument + "");   
         }
         else if (source == bDodajP)
         {
