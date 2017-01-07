@@ -36,7 +36,7 @@ do zrobienia:
 
 
 
-Co możbaby ewentuanie dodać:
+Co możba by ewentuanie dodać:
 
 - jakieś małe menu z jakoś informacją o programie 
 - ???
