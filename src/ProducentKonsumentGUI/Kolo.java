@@ -8,20 +8,25 @@ package ProducentKonsumentGUI;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import static javafx.scene.paint.Color.color;
 import javax.swing.JPanel;
 
 
 public class Kolo extends JPanel {
-    @Override
+   
+   private boolean b = false;
     public void paint(Graphics g)
-     {
-         //Get the current size of this component
-         Dimension d = this.getSize();
-
-         //draw in black
-         g.setColor(Color.BLACK);
-         //draw a centered horizontal line
-         g.drawOval(10, 10, 20, 20);
-     }
-    
+     { 
+        g.setColor(Okno.kolor);
+         if (b == false)
+         {
+           g.setColor(Color.BLACK);
+           g.drawOval(10, 10, 20, 20);
+           b = true;
+         }
+         else
+         {
+              g.fillOval(10, 10, 20, 20); 
+         }       
+     } 
 }

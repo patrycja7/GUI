@@ -18,43 +18,25 @@ public class Magazyn {
         polka = new LinkedList<String>();
     }
     
-    public  void skonsumuj(){
+    public void skonsumuj(){
         try{
-            semKon.acquire();
-            synchronized (polka){
-                    System.out.println("jess" );
-                    //semKon.acquire();
-
-                    Thread.sleep((long)(Math.random() * 2000));
-
-                    System.out.println("Skonsumowano : "+ " przez  "+ Thread.currentThread().getName());
-                    skonsumowano++;
-                    polka.remove(0);
-
-
-                }
+            semKon.acquire();       
+            Thread.sleep((long)(Math.random() * 2000));                  
+            skonsumowano++;
+            polka.remove(0);             
         }catch (Exception e){}        
     } 
     
-    public synchronized void dodaj(){
+    public  void dodaj(){
         
-        //synchronized(polka){
-            
             try{
-                String t = new String();
-                
-                polka.add(t);
-                
-                System.out.println("Produkcja : "  + " przez " + Thread.currentThread().getName());
+                String t = new String();       
+                polka.add(t);                    
                 wyprodukowano++;
-                Thread.sleep((long)(Math.random() * 1000));
-                
-                polka.notify();  
-            }catch (Exception e){   
-            }finally{
-                
-                semKon.release();
-            }
-        //}  
+                Thread.sleep((long)(Math.random() * 1000));   
+            }catch (Exception e){ 
+            }finally {
+               semKon.release();  
+            }        
     }  
 }

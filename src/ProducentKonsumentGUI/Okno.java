@@ -19,11 +19,13 @@ class Okno extends JFrame implements ActionListener {
     
     public static int producent = 0, konsument = 0;
     private JButton bDodajK, bDodajP, bWyjdz;
-    private JPanel liniaG, liniaD, kwadrat, kolo;
+    private JPanel liniaG, liniaD;
+    private  JPanel kwadrat, kolo;
     private JLabel lProducent, lKonsument;
     public static JLabel lProdukcja,lKonsumpcja, lIloscP, lIloscK;
     private JLabel lWyprodukowano, lSkonsumowano;
     private JLabel lWP,lWK;
+    public static Color kolor;
     public  Okno(){
         setLayout(null);
         
@@ -70,10 +72,11 @@ class Okno extends JFrame implements ActionListener {
         lKonsument.setBounds(560, 0, 100, 50);
         add(lKonsument);
         
+        
         kolo = new Kolo();
         kolo.setBounds(580, 40, 40, 55);
-	add(kolo);
-        pack();
+        add(kolo);
+        
         
         lIloscK = new JLabel("");
         lIloscK.setText("0");      
@@ -142,6 +145,8 @@ class Okno extends JFrame implements ActionListener {
         if (source == bDodajK )
         {
             new Konsument(magazyn).start();
+            kolor = new Color((int)( ( Math.random() * 255 ) + 1), (int)( ( Math.random() * 255 ) + 1), (int)( ( Math.random() * 255 ) + 1));
+            repaint(10, 10, 20, 20);           
             konsument++;
             lIloscK.setText(konsument + "");   
         }
@@ -153,7 +158,7 @@ class Okno extends JFrame implements ActionListener {
         }
         else if(source == bWyjdz)
         {
-            dispose();
+            System.exit(0);
         }
         
     }
