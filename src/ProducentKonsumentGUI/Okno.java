@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,12 +21,16 @@ class Okno extends JFrame implements ActionListener {
     public static int producent = 0, konsument = 0;
     private JButton bDodajK, bDodajP, bWyjdz;
     private JPanel liniaG, liniaD;
-    private  JPanel kwadrat, kolo;
+    public   JPanel kwadrat, kolo;
     private JLabel lProducent, lKonsument;
     public static JLabel lProdukcja,lKonsumpcja, lIloscP, lIloscK;
     private JLabel lWyprodukowano, lSkonsumowano;
     private JLabel lWP,lWK;
     public static Color kolor;
+    
+    public static ArrayList<JPanel> shapeList = new ArrayList<JPanel>();
+    public static int x = 535, i=0;
+    
     public  Okno(){
         setLayout(null);
         
@@ -36,10 +41,10 @@ class Okno extends JFrame implements ActionListener {
         lProducent.setBounds(10, 0, 100, 50);
         add(lProducent);
         
-        kwadrat = new Kwadrat();
+        kwadrat = new Kwadrat(false);
         kwadrat.setBounds(25, 40, 40, 55);
 	add(kwadrat);
-        pack();
+        
         
         lIloscP = new JLabel("");
         lIloscP.setText("0");      
@@ -56,7 +61,7 @@ class Okno extends JFrame implements ActionListener {
         add(lWP);
         
         liniaG = new Linia();
-        liniaG.setBounds(90, 20, 450, 55);
+        liniaG.setBounds(90, 18, 450, 55);
 	add(liniaG);
         pack();
         
@@ -73,7 +78,7 @@ class Okno extends JFrame implements ActionListener {
         add(lKonsument);
         
         
-        kolo = new Kolo();
+        kolo = new Kolo(false);
         kolo.setBounds(580, 40, 40, 55);
         add(kolo);
         
@@ -130,7 +135,7 @@ class Okno extends JFrame implements ActionListener {
         lKonsumpcja.setBounds(630, 300, 75, 50);
         add(lKonsumpcja);
         
-        getContentPane().setBackground(Color.WHITE);
+        //getContentPane().setBackground(Color.WHITE);
         setSize(700,400);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -142,17 +147,44 @@ class Okno extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         Magazyn magazyn = new Magazyn();
+        if (x == 110)
+            {
+                bDodajK.setEnabled(false);
+                bDodajP.setEnabled(false);
+            }
         if (source == bDodajK )
-        {
+        {          
             new Konsument(magazyn).start();
+            // test 
             kolor = new Color((int)( ( Math.random() * 255 ) + 1), (int)( ( Math.random() * 255 ) + 1), (int)( ( Math.random() * 255 ) + 1));
-            repaint(10, 10, 20, 20);           
+            Kolo k = new Kolo(true);
+            
+            k.setBounds(x -= 25, 36, 40, 55);
+            shapeList.add(k);
+            System.out.println(shapeList.size() + " polozenie koło" + x);
+            add( shapeList.get(i) );
+            k.repaint(10, 10, 20, 20); 
+            kolo.repaint();
+            i++;
+            // koniec testu
             konsument++;
             lIloscK.setText(konsument + "");   
         }
         else if (source == bDodajP)
         {
             new Producent(magazyn).start(); 
+            //test
+            kolor = new Color((int)( ( Math.random() * 255 ) + 1), (int)( ( Math.random() * 255 ) + 1), (int)( ( Math.random() * 255 ) + 1));
+            Kwadrat kw = new Kwadrat(true);
+            
+            kw.setBounds(x -= 25, 36, 40, 55);
+            shapeList.add(kw);
+            System.out.println(shapeList.size() + " polozenie kwadrat" + x);
+            add( shapeList.get(i) );
+            kw.repaint(10, 10, 20, 20); 
+            kwadrat.repaint();
+            i++;
+            //koniec testu 
             producent++;
             lIloscP.setText(producent + "");
         }

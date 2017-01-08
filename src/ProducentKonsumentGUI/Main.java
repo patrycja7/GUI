@@ -7,10 +7,7 @@ package ProducentKonsumentGUI;
 
 import javax.swing.SwingUtilities;
 
-/**
- *
- * @author Patrycja01
- */
+
 public class Main {
     public static void main(String[] args) {
        SwingUtilities.invokeLater(new Runnable() {

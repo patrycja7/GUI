@@ -6,23 +6,34 @@
 package ProducentKonsumentGUI;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JPanel;
 
 
 public class Kwadrat extends JPanel {
     
+    private boolean wypelnij = false;
+    private boolean b;
+    
+    public Kwadrat(boolean b){
+        this.b = b;
+    } 
     @Override
     public void paint(Graphics g)
-     {
-         //Get the current size of this component
-         Dimension d = this.getSize();
-
-         //draw in black
-         g.setColor(Color.BLACK);
-         //draw a centered horizontal line
-         g.drawRect(10, 10, 20, 20);
+     {  
+        super.paintComponent(g);
+        g.setColor(Okno.kolor);
+         if (wypelnij == false && b == false )
+         {            
+           g.setColor(Color.BLACK);
+           g.drawRect(10, 10, 20, 20);
+           wypelnij = true;
+         }
+         else 
+         {
+             System.out.println("wypelnij kwadrat");
+             g.fillRect(10, 10, 20, 20);
+         }  
      }
     
 }
