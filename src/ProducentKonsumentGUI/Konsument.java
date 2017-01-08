@@ -5,6 +5,8 @@
  */
 package ProducentKonsumentGUI;
 
+import java.awt.Color;
+
 
 public class Konsument extends Thread {
     private Magazyn polka;
@@ -25,7 +27,7 @@ public class Konsument extends Thread {
             }catch (InterruptedException e) {}  
         }
         Okno.konsument--;
-        Okno.lIloscK.setText(Okno.konsument + "");
+        Okno.lIloscK.setText(Okno.konsument + ""); 
     }
     
 }
