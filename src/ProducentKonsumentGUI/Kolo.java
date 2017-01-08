@@ -14,19 +14,29 @@ import javax.swing.JPanel;
 
 public class Kolo extends JPanel {
    
-   private boolean b = false;
+    private boolean wypelnij = false;
+  
+    private boolean b;
+     
+    public Kolo(boolean b){
+        this.b = b;
+    } 
+           
     public void paint(Graphics g)
      { 
+        super.paintComponent(g);
         g.setColor(Okno.kolor);
-         if (b == false)
+         if (wypelnij == false && b == false )
          {
+             
            g.setColor(Color.BLACK);
            g.drawOval(10, 10, 20, 20);
-           b = true;
+           wypelnij = true;
          }
-         else
+         else 
          {
-              g.fillOval(10, 10, 20, 20); 
-         }       
+             System.out.println("wypelnij kolo");
+             g.fillOval(10, 10, 20, 20);
+         }  
      } 
 }

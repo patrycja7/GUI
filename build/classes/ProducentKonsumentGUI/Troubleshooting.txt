@@ -1,9 +1,0 @@
-Problemy, które wyst¹pi³y:
-- kiedy najpierw naciœnie siê add Consumer a  dopiero potem add Producer to liczniK konsumpcji
-  nie zaczyna zliczaæ skonsumowanych produktów,a w¹tek nie koñczy dzia³ania --> prawdopodobnie zatrzymuje siê na wait()
-  i nie jest budzony (rozwi¹zany),
-- przy 2 naciœniêciu przycisku producent i zaraz potem konsument przestaj¹ dzia³aæ liczniki programów i w¹tki siê nie koñcz¹,
-  czemu? ni vim ... (nierozwi¹zany) 
-- przypisywanie koloru symbolom w¹tków w momecie uruchomienia w¹tku (nierozwi¹zany),
-- dodawanie sumboli w¹tków do paska magazynu tak aby nie nachodzi³y na siebie (nierozwi¹zany),
-- wprowadzenie maksymalnej iloœci obu rodzajów w¹tków, tak aby nie wychodzi³y poza pasek magazynu (nierozwi¹zany),

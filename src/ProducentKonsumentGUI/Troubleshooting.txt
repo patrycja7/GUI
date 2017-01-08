@@ -3,7 +3,16 @@ Problemy, które wyst¹pi³y:
   nie zaczyna zliczaæ skonsumowanych produktów,a w¹tek nie koñczy dzia³ania --> prawdopodobnie zatrzymuje siê na wait()
   i nie jest budzony (rozwi¹zany),
 - przy 2 naciœniêciu przycisku producent i zaraz potem konsument przestaj¹ dzia³aæ liczniki programów i w¹tki siê nie koñcz¹,
-  czemu? ni vim ... (nierozwi¹zany) 
-- przypisywanie koloru symbolom w¹tków w momecie uruchomienia w¹tku (nierozwi¹zany),
-- dodawanie sumboli w¹tków do paska magazynu tak aby nie nachodzi³y na siebie (nierozwi¹zany),
-- wprowadzenie maksymalnej iloœci obu rodzajów w¹tków, tak aby nie wychodzi³y poza pasek magazynu (nierozwi¹zany),
+  czemu? ni vim ... (rozwi¹zany) 
+- przypisywanie koloru symbolom w¹tków w momecie uruchomienia w¹tku (rozwi¹zany),
+- dodawanie sumboli w¹tków do paska magazynu tak aby nie nachodzi³y na siebie (rozwi¹zany),
+- brak synchronizacji -> wait,noitfy itd. (nierozwi¹zany)
+- jak uruchomi siê konsumenta i producenta to po zakoñczeniu konsumenta, kawa³ek kwadratu producenta przyjmuje kolor 
+  konsumenta, czasami to samo wystêpuje w przypadku ko³a --> prawdopodobnie za du¿o razy wchodzi repaint, chyba... (nierozwi¹zany),
+- kiedy jeden w¹tek siê zakoñczy jego symbol znika z linii magazynu (nierozwi¹zany),
+- kiedy jakiœ w¹tek siê zakoñczy w¹tek za nim przesuwa siê na jego miejsce (nierozwi¹zany),
+- wprowadzenie maksymalnej iloœci obu rodzajów w¹tków, tak aby nie wychodzi³y poza pasek magazynu (rozwi¹zany),
+- aktywowanie klawiszy kiedy zmleje liczba w¹tków (nierozwi¹zany),
+- jakaœ optymalizacja kodu by siê przyda³a bo siê robi chujowy ... (nierozwi¹zany),
+- tak wiem, przez to paint component nie widaæ ile w¹tków dzia³a, 
+  ale to siê przesunie ni¿ej (inaczej nie umiem zrobiæ) (nierozwi¹zany)
