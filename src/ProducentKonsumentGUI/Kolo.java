@@ -35,7 +35,6 @@ public class Kolo extends JPanel {
          }
          else 
          {
-             System.out.println("wypelnij kolo");
              g.fillOval(10, 10, 20, 20);
          }  
      } 

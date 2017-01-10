@@ -14,22 +14,28 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 
 class Okno extends JFrame implements ActionListener {
     
-    public static int producent = 0, konsument = 0;
-    private JButton bDodajK, bDodajP, bWyjdz;
-    private JPanel liniaG, liniaD;
-    public   JPanel kwadrat, kolo;
-    private JLabel lProducent, lKonsument;
+    
+    public  JPanel kwadrat, kolo;
     public static JLabel lProdukcja,lKonsumpcja, lIloscP, lIloscK;
-    private JLabel lWyprodukowano, lSkonsumowano;
-    private JLabel lWP,lWK;
+    public static int producent = 0, konsument = 0;
+    public static ArrayList<JPanel> linia = new ArrayList<JPanel>();
+    public static int x = 535;
     public static Color kolor;
     
-    public static ArrayList<JPanel> shapeList = new ArrayList<JPanel>();
-    public static int x = 535, i=0;
+    private JButton bDodajK, bDodajP, bWyjdz;
+    private JPanel liniaG, liniaD;
+    private JLabel lProducent, lKonsument;
+    private JLabel lWyprodukowano, lSkonsumowano;
+    private JLabel lWP,lWK;
+    
+    private Timer timer; 
+    public static  ArrayList<Thread> listaWatkow = new ArrayList<Thread>();
+    private  Kwadrat liniaKwadrat, liniaKolo;
     
     public  Okno(){
         setLayout(null);
@@ -50,14 +56,14 @@ class Okno extends JFrame implements ActionListener {
         lIloscP.setText("0");      
         lIloscP.setForeground(Color.BLACK);
         lIloscP.setFont(new Font("Arial", Font.BOLD, 20));
-        lIloscP.setBounds(35, 65, 100, 50);
+        lIloscP.setBounds(35, 85, 100, 50);
         add(lIloscP);
         
         lWP = new JLabel("");
         lWP.setText("Running");      
         lWP.setForeground(Color.BLACK);
         lWP.setFont(new Font("Arial", Font.BOLD, 20));
-        lWP.setBounds(10, 85, 100, 50);
+        lWP.setBounds(10, 105, 100, 50);
         add(lWP);
         
         liniaG = new Linia();
@@ -87,14 +93,14 @@ class Okno extends JFrame implements ActionListener {
         lIloscK.setText("0");      
         lIloscK.setForeground(Color.BLACK);
         lIloscK.setFont(new Font("Arial", Font.BOLD, 20));
-        lIloscK.setBounds(590, 65, 100, 50);
+        lIloscK.setBounds(590, 85, 100, 50);
         add(lIloscK);
         
         lWK = new JLabel("");
         lWK.setText("Running");      
         lWK.setForeground(Color.BLACK);
         lWK.setFont(new Font("Arial", Font.BOLD, 20));
-        lWK.setBounds(560, 85, 100, 50);
+        lWK.setBounds(560, 105, 100, 50);
         add(lWK);
         
         bDodajK = new JButton("add Consumer ");
@@ -136,63 +142,134 @@ class Okno extends JFrame implements ActionListener {
         add(lKonsumpcja);
         
         //getContentPane().setBackground(Color.WHITE);
+        
+        
+        
         setSize(700,400);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Producent/Konsument GUI  ");
          setVisible(true);
+         
+         ActionListener zadanie = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                aktualizuj(); 
+               //repaint();
+            }
+        };
+        timer = new Timer(20, zadanie);
+       
+         
     }
 
+   
+   
+    
+    
+    
+   
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         Magazyn magazyn = new Magazyn();
+        timer.start();
         if (x == 110)
             {
                 bDodajK.setEnabled(false);
                 bDodajP.setEnabled(false);
             }
+          
         if (source == bDodajK )
-        {          
-            new Konsument(magazyn).start();
-            // test 
+        {   // test        
+            Konsument watekKonsument = new Konsument(magazyn);
+            watekKonsument.setName("kolo");
+            listaWatkow.add(watekKonsument );
+            watekKonsument.start();
+
             kolor = new Color((int)( ( Math.random() * 255 ) + 1), (int)( ( Math.random() * 255 ) + 1), (int)( ( Math.random() * 255 ) + 1));
-            Kolo k = new Kolo(true);
-            
-            k.setBounds(x -= 25, 36, 40, 55);
-            shapeList.add(k);
-            System.out.println(shapeList.size() + " polozenie koło" + x);
-            add( shapeList.get(i) );
-            k.repaint(10, 10, 20, 20); 
+            Kolo liniaKolo = new Kolo(true);
+             
+            liniaKolo.setBounds(x -= 25, 36, 40, 55);
+            linia.add(liniaKolo);
+            this.add(liniaKolo );
+            liniaKolo.repaint(10, 10, 20, 20); 
             kolo.repaint();
-            i++;
+            
             // koniec testu
             konsument++;
-            lIloscK.setText(konsument + "");   
+            lIloscK.setText(konsument + "");
+            
+           
         }
         else if (source == bDodajP)
         {
-            new Producent(magazyn).start(); 
+            Producent watekProducent = new Producent(magazyn); 
             //test
-            kolor = new Color((int)( ( Math.random() * 255 ) + 1), (int)( ( Math.random() * 255 ) + 1), (int)( ( Math.random() * 255 ) + 1));
-            Kwadrat kw = new Kwadrat(true);
+             watekProducent.setName("kwadrat");
+            listaWatkow.add(watekProducent);
+            watekProducent.start();
             
-            kw.setBounds(x -= 25, 36, 40, 55);
-            shapeList.add(kw);
-            System.out.println(shapeList.size() + " polozenie kwadrat" + x);
-            add( shapeList.get(i) );
-            kw.repaint(10, 10, 20, 20); 
+          
+           
+           
+            kolor = new Color((int)( ( Math.random() * 255 ) + 1), (int)( ( Math.random() * 255 ) + 1), (int)( ( Math.random() * 255 ) + 1));
+             liniaKwadrat = new Kwadrat(true);
+            liniaKwadrat.setBounds(x -= 25, 36, 40, 55);
+            linia.add(liniaKwadrat);
+            
+            this.add(liniaKwadrat );
+            liniaKwadrat.repaint(10, 10, 20, 20); 
             kwadrat.repaint();
-            i++;
+            
             //koniec testu 
             producent++;
             lIloscP.setText(producent + "");
+            
+            
         }
         else if(source == bWyjdz)
         {
             System.exit(0);
         }
-        
+       
+        //setContentPane(lm);
+       //lm.setBounds(85, 36, 500, 55);
+        //add(lm);
     }
-        
+    
+    public void aktualizuj(){
+        for (int i = 0; i < listaWatkow.size(); i++)
+        {
+            if(listaWatkow.get(i).isAlive() == false)
+            {
+                x +=25; // źle ale niech se działa na razie 
+                System.out.println(" x +25 = " + x);
+               if (String.valueOf(listaWatkow.get(i).getName()).equals("kwadrat"))
+               {
+                    
+                  // liniaKwadrat.setBounds(x -= 25, 36, 40, 55);
+                   //System.out.println("kwadrat x - 25 = " + x);
+                   //add(liniaKwadrat);
+                   //repaint(10, 10, 20, 20);
+                   listaWatkow.remove(i);
+                   
+               }
+               else 
+               {
+                   //liniaKolo.setBounds(x -= 25, 36, 40, 55);
+                   //System.out.println("kolo x -25 = " + x);
+                   //repaint(10, 10, 20, 20);
+                   listaWatkow.remove(i);  
+                   
+                   //add(liniaKolo);
+               } 
+               bDodajK.setEnabled(true);
+                bDodajP.setEnabled(true);
+            }  
+            
+            
+        }
+    }
+    
 }
