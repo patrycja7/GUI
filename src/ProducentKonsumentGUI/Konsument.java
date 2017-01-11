@@ -28,6 +28,7 @@ public class Konsument extends Thread {
         }
         Okno.konsument--;
         Okno.lIloscK.setText(Okno.konsument + ""); 
+<<<<<<< HEAD
         // test, chce zrobić tak, że jak wątek skończy działać to jego kółko zniknie, a reszta tych jebanych kółek się przesunie 
         for (int i = Okno.i; i < Okno.shapeList.size(); i++)
         {   //Okno.x +=25;
@@ -35,4 +36,7 @@ public class Konsument extends Thread {
         }
     }
     
+=======
+    }    
+>>>>>>> changesPK
 }

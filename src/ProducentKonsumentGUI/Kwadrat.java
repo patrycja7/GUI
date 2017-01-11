@@ -31,7 +31,6 @@ public class Kwadrat extends JPanel {
          }
          else 
          {
-             System.out.println("wypelnij kwadrat");
              g.fillRect(10, 10, 20, 20);
          }  
      }
