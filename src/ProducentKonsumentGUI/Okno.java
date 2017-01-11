@@ -20,13 +20,12 @@ import javax.swing.Timer;
 class Okno extends JFrame implements ActionListener {
     
     
-    public  JPanel kwadrat, kolo;
+    private JPanel kwadrat, kolo;
     public static JLabel lProdukcja,lKonsumpcja, lIloscP, lIloscK;
     public static int producent = 0, konsument = 0;
     public static ArrayList<JPanel> linia = new ArrayList<JPanel>();
     public static int rozmiarX = 535;
-    public static Color kolor;
-    
+    public static Color kolor;    
     private JButton bDodajK, bDodajP, bWyjdz;
     private JPanel liniaG, liniaD;
     private JLabel lProducent, lKonsument;
@@ -153,7 +152,7 @@ class Okno extends JFrame implements ActionListener {
          ActionListener zadanie = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-               // aktualizuj();        
+               //aktualizuj();        
             }
         };
         timer = new Timer(AKTUALIZACJA, zadanie);     
