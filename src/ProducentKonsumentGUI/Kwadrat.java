@@ -22,7 +22,7 @@ public class Kwadrat extends JPanel {
     public void paint(Graphics g)
      {  
         super.paintComponent(g);
-        g.setColor(Okno.kolor);
+        g.setColor(Magazyn.kolor);
          if (wypelnij == false && b == false )
          {            
            g.setColor(Color.BLACK);
