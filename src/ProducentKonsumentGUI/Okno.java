@@ -18,24 +18,13 @@ import javax.swing.Timer;
 
 
 class Okno extends JFrame implements ActionListener {
-    
-<<<<<<< HEAD
-    
-    private JPanel kwadrat, kolo;
-    public static JLabel lProdukcja,lKonsumpcja, lIloscP, lIloscK;
-    public static int producent = 0, konsument = 0;
-    public static ArrayList<JPanel> linia = new ArrayList<JPanel>();
-    public static int rozmiarX = 535;
-    public static Color kolor;    
-    private JButton bDodajK, bDodajP, bWyjdz;
-=======
-    public static JPanel kwadrat, kolo;
+
     public static Produkt produkt;
     public static JLabel lProdukcja,lKonsumpcja, lIloscP, lIloscK;
     public static int producent = 0, konsument = 0;
     public static Color kolor; 
-    private JButton bDodajP, bDodajK, bWyjdz;
->>>>>>> changesPK
+    public static JPanel kwadrat, kolo;
+    private JButton bDodajK, bDodajP, bWyjdz;
     private JPanel liniaG, liniaD;
     private JLabel lProducent, lKonsument;
     private JLabel lWyprodukowano, lSkonsumowano;
@@ -149,19 +138,7 @@ class Okno extends JFrame implements ActionListener {
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Producent/Konsument GUI");
-<<<<<<< HEAD
-        setVisible(true);
-         
-         ActionListener zadanie = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-               //aktualizuj();        
-            }
-        };
-        timer = new Timer(AKTUALIZACJA, zadanie);     
-=======
-        setVisible(true);   
->>>>>>> changesPK
+        setVisible(true);       
     }
     
     @Override
