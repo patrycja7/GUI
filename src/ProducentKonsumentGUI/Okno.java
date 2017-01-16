@@ -19,6 +19,7 @@ import javax.swing.Timer;
 
 class Okno extends JFrame implements ActionListener {
     
+<<<<<<< HEAD
     
     private JPanel kwadrat, kolo;
     public static JLabel lProdukcja,lKonsumpcja, lIloscP, lIloscK;
@@ -27,21 +28,18 @@ class Okno extends JFrame implements ActionListener {
     public static int rozmiarX = 535;
     public static Color kolor;    
     private JButton bDodajK, bDodajP, bWyjdz;
+=======
+    public static JPanel kwadrat, kolo;
+    public static Produkt produkt;
+    public static JLabel lProdukcja,lKonsumpcja, lIloscP, lIloscK;
+    public static int producent = 0, konsument = 0;
+    public static Color kolor; 
+    private JButton bDodajP, bDodajK, bWyjdz;
+>>>>>>> changesPK
     private JPanel liniaG, liniaD;
     private JLabel lProducent, lKonsument;
     private JLabel lWyprodukowano, lSkonsumowano;
     private JLabel lWP,lWK;
-    private Kwadrat liniaKwadrat;
-    private Kolo liniaKolo;
-    private Timer timer;
-    private final int ODSTEP = 25;
-    private final int ROZMIAR_Y = 36;
-    private final int SZEROKOSC = 40;
-    private final int WYSOKOSC = 55;
-    private static final int AKTUALIZACJA = 20; 
-    public static  ArrayList<Thread> listaWatkow = new ArrayList<Thread>();
-    public  static ArrayList<Integer> listaX = new ArrayList<Integer>();
-    
     
     public  Okno(){
         setLayout(null);
@@ -95,24 +93,28 @@ class Okno extends JFrame implements ActionListener {
         kolo = new Kolo(false);
         kolo.setBounds(580, 40, 40, 55);
         add(kolo);
-                         
+              
+        produkt = new Produkt();
+        produkt.setBounds(85, 40, 500, 30);
+        add(produkt);
+                 
         liniaG = new Linia();
-        liniaG.setBounds(90, 18, 450, 55);
+        liniaG.setBounds(86, 12, 470, 55);
 	add(liniaG);      
         
         liniaD = new Linia();
-        liniaD.setBounds(90, 40, 450, 55);
+        liniaD.setBounds(86, 45, 470, 55);
 	add(liniaD);
        
-        bDodajK = new JButton("add Consumer ");
-        bDodajK.setBounds(0, 300, 150, 45);
-        add(bDodajK);
-        bDodajK.addActionListener(this);
-     
-        bDodajP = new JButton("add Producer");
-        bDodajP.setBounds(160, 300, 150, 45);
+        bDodajP = new JButton("add Producer ");
+        bDodajP.setBounds(0, 300, 150, 45);
         add(bDodajP);
         bDodajP.addActionListener(this);
+     
+        bDodajK = new JButton("add Consumer");
+        bDodajK.setBounds(160, 300, 150, 45);
+        add(bDodajK);
+        bDodajK.addActionListener(this);
         
         bWyjdz = new JButton("Quit");
         bWyjdz.setBounds(320, 300, 100, 45);
@@ -147,6 +149,7 @@ class Okno extends JFrame implements ActionListener {
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Producent/Konsument GUI");
+<<<<<<< HEAD
         setVisible(true);
          
          ActionListener zadanie = new ActionListener() {
@@ -156,78 +159,31 @@ class Okno extends JFrame implements ActionListener {
             }
         };
         timer = new Timer(AKTUALIZACJA, zadanie);     
+=======
+        setVisible(true);   
+>>>>>>> changesPK
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         Magazyn magazyn = new Magazyn();
-        timer.start();
-          
-        if (source == bDodajK )
+   
+        if (source == bDodajP )
         {          
-            Konsument watekKonsument = new Konsument(magazyn);
-            //watekKonsument.setName("kolo");
-            listaWatkow.add(watekKonsument );
-            watekKonsument.start();
-
-            kolor = new Color((int)( ( Math.random() * 255 ) + 1), (int)( ( Math.random() * 255 ) + 1), 
-                   (int)( ( Math.random() * 255 ) + 1));
-            liniaKolo = new Kolo(true);
-             
-            liniaKolo.setBounds(rozmiarX -= ODSTEP, ROZMIAR_Y, SZEROKOSC, WYSOKOSC);
-            listaX.add(rozmiarX);
-            linia.add(liniaKolo); 
-            add(liniaKolo );
-            liniaKolo.repaint(10, 10, 20, 20);
-            kolo.repaint(); 
-            konsument++;
-            lIloscK.setText(konsument + "");      
-        }
-        else if (source == bDodajP)
-        {
-            Producent watekProducent = new Producent(magazyn); 
-            //watekProducent.setName("kwadrat");
-            listaWatkow.add(watekProducent);
-            watekProducent.start();
-            kolor = new Color((int)( ( Math.random() * 255 ) + 1), (int)( ( Math.random() * 255 ) + 1), 
-                    (int)( ( Math.random() * 255 ) + 1));
-            
-            liniaKwadrat = new Kwadrat(true);
-            liniaKwadrat.setBounds(rozmiarX -= ODSTEP , ROZMIAR_Y, SZEROKOSC, WYSOKOSC);
-            listaX.add(rozmiarX);
-            add(liniaKwadrat);
-            liniaKwadrat.repaint(10, 10, 20, 20);  
-            linia.add(liniaKwadrat);
-            kwadrat.repaint();
+           new Producent(magazyn).start(); 
             producent++;
-            lIloscP.setText(producent + "");   
+            lIloscP.setText(producent + "");               
+        }
+        else if (source == bDodajK)
+        {          
+            new Konsument(magazyn).start();                               
+            konsument++;
+            lIloscK.setText(konsument + "");            
         }
         else if(source == bWyjdz)
         {
             System.exit(0);
-        }
-       
+        }      
     }
-    
-    public void aktualizuj(){
-        for (int i = 0; i < listaWatkow.size(); i++)
-        {
-            if(listaWatkow.get(i).isAlive() == false)
-            {
-                 
-                if (i == 0)
-                {
-                    rozmiarX = 535;
-                }
-                else
-                {
-                    rozmiarX = listaX.get(i);               
-                }
-                listaX.remove(i);
-                listaWatkow.remove(i);              
-                remove(linia.get(i));
-            }    
-        }
-    }   
 }

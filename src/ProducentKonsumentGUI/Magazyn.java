@@ -5,38 +5,54 @@
  */
 package ProducentKonsumentGUI;
 
+import java.awt.Color;
 import java.util.LinkedList;
-import java.util.concurrent.Semaphore;
-
 
        
 public class Magazyn {
-    private static  LinkedList<String> polka;
-    private static Semaphore semKon = new Semaphore(0);
+    public static LinkedList<Color> polka =  new LinkedList<Color>();
+    public static Color kolor;
+    private final int MAX = 19; 
     public static int wyprodukowano = 0, skonsumowano = 0;
-    public Magazyn(){
-        polka = new LinkedList<String>();
-    }
     
     public void skonsumuj(){
-        try{
-            semKon.acquire();       
-            Thread.sleep((long)(Math.random() * 2000));                  
-            skonsumowano++;
-            polka.remove(0);             
-        }catch (Exception e){}        
+        synchronized(polka){
+            try{    
+                if ( polka.isEmpty() )
+                {
+                    System.out.println("polka pusta, konsument czeka");
+                    polka.wait();    
+                }
+                Thread.sleep((long)(Math.random() * 2000));  
+                skonsumowano++;
+                polka.remove(0);
+                Okno.produkt.repaint();
+                System.out.println("konsument zjadł " + polka.size());
+                polka.notify();
+            }catch (Exception e){}    
+        }        
     } 
     
     public  void dodaj(){
         
+        synchronized(polka){
             try{
-                String t = new String();       
-                polka.add(t);                    
+                if (polka.size() == MAX)
+                {
+                    System.out.println("polka max, producent czeka");
+                    polka.wait();       
+                }
+                kolor = new Color((int)( ( Math.random() * 255 ) + 1), (int)( ( Math.random() * 255 ) + 1), 
+                    (int)( ( Math.random() * 255 ) + 1)); 
+                Okno.kwadrat.repaint();
+                Okno.kolo.repaint(); 
+                polka.add(kolor);   
+                Okno.produkt.repaint();
+                System.out.println("Producent wyprodukował "); 
                 wyprodukowano++;
+                polka.notify();
                 Thread.sleep((long)(Math.random() * 1000));   
-            }catch (Exception e){ 
-            }finally {
-               semKon.release();  
-            }        
-    }  
+            }catch (Exception e){}      
+        }  
+    }
 }

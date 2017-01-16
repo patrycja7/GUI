@@ -16,16 +16,13 @@ public class Producent extends Thread {
     
     public void run(){
         
-        for(int i = 0; i < 5; i++)
+       while(true)
         {
-            try{
-                
+            try{                
                 polka.dodaj();
                 Okno.lProdukcja.setText(polka.wyprodukowano + "");
 	        Thread.sleep( (int)(Math.random() * 1000) );   
             }catch (InterruptedException e) {}  
         }
-        Okno.producent--;
-        Okno.lIloscP.setText(Okno.producent + "");
     }
 }

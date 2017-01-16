@@ -18,7 +18,7 @@ public class Konsument extends Thread {
     
     public void run(){
         
-        for(int i = 0; i < 5; i++)
+        for(;;)
         {
             try{
                 polka.skonsumuj();
@@ -26,9 +26,14 @@ public class Konsument extends Thread {
 	        Thread.sleep( (int)(Math.random() * 1000) );   
             }catch (InterruptedException e) {}  
         }
+<<<<<<< HEAD
         Okno.konsument--;
         Okno.lIloscK.setText(Okno.konsument + ""); 
     }
  }    
 
 
+=======
+    }    
+}
+>>>>>>> changesPK
