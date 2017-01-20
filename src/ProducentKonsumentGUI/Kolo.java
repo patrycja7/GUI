@@ -16,17 +16,17 @@ public class Kolo extends JPanel {
    
     private boolean wypelnij = false;
   
-    private boolean b;
+    private boolean pierwszeRysowanie;
      
     public Kolo(boolean b){
-        this.b = b;
+        this.pierwszeRysowanie = b;
     } 
            
     public void paint(Graphics g)
      { 
         super.paintComponent(g);
         g.setColor(Magazyn.kolor);
-         if (wypelnij == false && b == false )
+         if (wypelnij == false && pierwszeRysowanie == true )
          {
              
            g.setColor(Color.BLACK);

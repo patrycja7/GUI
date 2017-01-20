@@ -9,28 +9,29 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.Timer;
+
 
 
 class Okno extends JFrame implements ActionListener {
 
     public static Produkt produkt;
-    public static JLabel lProdukcja,lKonsumpcja, lIloscP, lIloscK;
-    public static int producent = 0, konsument = 0;
-    public static Color kolor; 
+    public static JLabel lProdukcja,lKonsumpcja; 
     public static JPanel kwadrat, kolo;
+    private JLabel lIloscP, lIloscK;
+    private  int producent = 0, konsument = 0;  
     private JButton bDodajK, bDodajP, bWyjdz;
     private JPanel liniaG, liniaD;
     private JLabel lProducent, lKonsument;
     private JLabel lWyprodukowano, lSkonsumowano;
-    private JLabel lWP,lWK;
+    private JLabel lNapisP,lNapisK;
     
-    public  Okno(){
+    private Muzyka muzyka;
+    public  Okno() {
         setLayout(null);
         
         lProducent = new JLabel("");
@@ -47,12 +48,12 @@ class Okno extends JFrame implements ActionListener {
         lIloscP.setBounds(35, 85, 100, 50);
         add(lIloscP);
         
-        lWP = new JLabel("");
-        lWP.setText("Running");      
-        lWP.setForeground(Color.BLACK);
-        lWP.setFont(new Font("Arial", Font.BOLD, 20));
-        lWP.setBounds(10, 105, 100, 50);
-        add(lWP);
+        lNapisP = new JLabel("");
+        lNapisP.setText("Running");      
+        lNapisP.setForeground(Color.BLACK);
+        lNapisP.setFont(new Font("Arial", Font.BOLD, 20));
+        lNapisP.setBounds(10, 105, 100, 50);
+        add(lNapisP);
         
         lKonsument = new JLabel("");
         lKonsument.setText("Consumer");
@@ -68,18 +69,18 @@ class Okno extends JFrame implements ActionListener {
         lIloscK.setBounds(590, 85, 100, 50);
         add(lIloscK);
         
-        lWK = new JLabel("");
-        lWK.setText("Running");      
-        lWK.setForeground(Color.BLACK);
-        lWK.setFont(new Font("Arial", Font.BOLD, 20));
-        lWK.setBounds(560, 105, 100, 50);
-        add(lWK);
+        lNapisK = new JLabel("");
+        lNapisK.setText("Running");      
+        lNapisK.setForeground(Color.BLACK);
+        lNapisK.setFont(new Font("Arial", Font.BOLD, 20));
+        lNapisK.setBounds(560, 105, 100, 50);
+        add(lNapisK);
               
-        kwadrat = new Kwadrat(false);
+        kwadrat = new Kwadrat(true);
         kwadrat.setBounds(25, 40, 40, 55);
 	add(kwadrat);
         
-        kolo = new Kolo(false);
+        kolo = new Kolo(true);
         kolo.setBounds(580, 40, 40, 55);
         add(kolo);
               
@@ -133,7 +134,9 @@ class Okno extends JFrame implements ActionListener {
         lKonsumpcja.setForeground(Color.BLACK);
         lKonsumpcja.setBounds(630, 300, 75, 50);
         add(lKonsumpcja);
-                  
+        
+         muzyka = new Muzyka("Ori and the Blind Forest - Calling Out.wav");
+         
         setSize(700,400);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

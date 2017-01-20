@@ -18,7 +18,7 @@ public class Magazyn {
     public void skonsumuj(){
         synchronized(polka){
             try{    
-                if ( polka.isEmpty() )
+                while ( polka.isEmpty() )
                 {
                     System.out.println("polka pusta, konsument czeka");
                     polka.wait();    
@@ -37,18 +37,18 @@ public class Magazyn {
         
         synchronized(polka){
             try{
-                if (polka.size() == MAX)
+                while(polka.size() == MAX)
                 {
                     System.out.println("polka max, producent czeka");
                     polka.wait();       
-                }
+                }              
                 kolor = new Color((int)( ( Math.random() * 255 ) + 1), (int)( ( Math.random() * 255 ) + 1), 
-                    (int)( ( Math.random() * 255 ) + 1)); 
+                       (int)( ( Math.random() * 255 ) + 1)); 
                 Okno.kwadrat.repaint();
                 Okno.kolo.repaint(); 
                 polka.add(kolor);   
                 Okno.produkt.repaint();
-                System.out.println("Producent wyprodukował "); 
+                System.out.println("Producent wyprodukował " + polka.size()); 
                 wyprodukowano++;
                 polka.notify();
                 Thread.sleep((long)(Math.random() * 1000));   
