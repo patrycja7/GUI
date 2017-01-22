@@ -9,7 +9,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
+import java.io.File;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,19 +19,22 @@ import javax.swing.JPanel;
 
 
 
-class Okno extends JFrame implements ActionListener {
+class Okno extends JFrame implements ActionListener{
 
     public static Produkt produkt;
     public static JLabel lProdukcja,lKonsumpcja; 
     public static JPanel kwadrat, kolo;
     private JLabel lIloscP, lIloscK;
     private  int producent = 0, konsument = 0;  
-    private JButton bDodajK, bDodajP, bWyjdz;
+    private JButton bDodajK, bDodajP,bDzwiek, bWyjdz;
+    private final Icon ON = new ImageIcon(new File("on.jpg").getAbsolutePath());
+    private final Icon OFF = new ImageIcon(new File("off.jpg").getAbsolutePath());
+    private final Icon MUTED = new ImageIcon(new File("sound.jpg").getAbsolutePath()); 
     private JPanel liniaG, liniaD;
     private JLabel lProducent, lKonsument;
     private JLabel lWyprodukowano, lSkonsumowano;
     private JLabel lNapisP,lNapisK;
-    
+    private int klik = 0;
     private Muzyka muzyka;
     public  Okno() {
         setLayout(null);
@@ -106,6 +111,13 @@ class Okno extends JFrame implements ActionListener {
         add(bDodajK);
         bDodajK.addActionListener(this);
         
+        
+        bDzwiek = new JButton(MUTED);       
+        bDzwiek.setBorder(null);
+        bDzwiek.setBounds(100, 100, 33, 30);
+        add(bDzwiek);
+        bDzwiek.addActionListener(this);
+        
         bWyjdz = new JButton("Quit");
         bWyjdz.setBounds(320, 300, 100, 45);
         add(bWyjdz);
@@ -135,9 +147,9 @@ class Okno extends JFrame implements ActionListener {
         lKonsumpcja.setBounds(630, 300, 75, 50);
         add(lKonsumpcja);
         
-         muzyka = new Muzyka("Ori and the Blind Forest - Calling Out.wav");
-         
-        setSize(700,400);
+         muzyka = new Muzyka("OriandtheBlindForest-CallingOut.wav");
+ 
+        setSize(700,400);;
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Producent/Konsument GUI");
@@ -148,7 +160,7 @@ class Okno extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         Magazyn magazyn = new Magazyn();
-   
+        
         if (source == bDodajP )
         {          
            new Producent(magazyn).start(); 
@@ -161,9 +173,26 @@ class Okno extends JFrame implements ActionListener {
             konsument++;
             lIloscK.setText(konsument + "");            
         }
+        else if (source == bDzwiek)
+        {
+            
+            if(klik == 0)
+            {
+                bDzwiek.setIcon(ON);
+                muzyka.przygotuj();
+                muzyka.start();
+                klik = 1;   
+            }
+            else
+            {  
+               bDzwiek.setIcon(OFF);            
+               muzyka.stop();
+                klik = 0;
+            }
+        }
         else if(source == bWyjdz)
         {
             System.exit(0);
         }      
-    }
+    }   
 }
