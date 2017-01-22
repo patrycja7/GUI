@@ -7,7 +7,6 @@ package ProducentKonsumentGUI;
 
 import java.awt.Color;
 import java.util.LinkedList;
-
        
 public class Magazyn {
     public static LinkedList<Color> polka =  new LinkedList<Color>();

@@ -6,12 +6,17 @@
 package ProducentKonsumentGUI;
 
 import java.io.File;
+import java.io.InputStream;
 import java.net.URL;
+import java.util.jar.JarFile;
+import static javax.sound.midi.MidiSystem.getSequence;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 // tak wiem .... ale to silniejsze ode mnie ...
 
@@ -19,12 +24,15 @@ import javax.sound.sampled.DataLine;
 public class Muzyka {
     
     private String nazwaPliku; 
-    private File plik, sciezka;
-    private AudioInputStream ais ;
+    private File plik;
+    private AudioInputStream ais;
     private AudioFormat format;
     private DataLine.Info info;
     private Clip klip ; 
-    final File jarFile = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath());     
+    private URL sciezka;
+    final File jarFile = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath()); 
+    InputStream is;
+    
     public Muzyka (String nazwa){
         nazwaPliku = nazwa; 
     }
@@ -43,16 +51,18 @@ public class Muzyka {
     public void przygotuj() {
        try
         { 
-            if(jarFile.isFile())
-            {
-             // cos tu trzeba zrobic zeby muzyka i obrazki sie ladowaly w jarze, o ile ci sie wgl normalnie laduja ...
-
+            if (jarFile.isFile())
+            { 
+             sciezka = getClass().getResource(nazwaPliku); 
+             ais = AudioSystem.getAudioInputStream(sciezka);  
             }
-            sciezka = new File(nazwaPliku);
-            plik = new File(sciezka.getCanonicalPath());
-            
-            ais = AudioSystem.getAudioInputStream(plik);
-            format = ais.getFormat();
+            else
+            {
+                 sciezka = getClass().getResource(nazwaPliku);
+                plik = new File(String.valueOf(sciezka).substring(6));
+                ais = AudioSystem.getAudioInputStream(plik);
+               // format = ais.getFormat(); potencjalnie do wyjebania
+            }
             info = new DataLine.Info(Clip.class, format);
             klip = (Clip) AudioSystem.getLine(info); 
             klip.open(ais);

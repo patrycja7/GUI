@@ -10,6 +10,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.net.URL;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -27,9 +28,13 @@ class Okno extends JFrame implements ActionListener{
     private JLabel lIloscP, lIloscK;
     private  int producent = 0, konsument = 0;  
     private JButton bDodajK, bDodajP,bDzwiek, bWyjdz;
-    private final Icon ON = new ImageIcon(new File("on.jpg").getAbsolutePath());
-    private final Icon OFF = new ImageIcon(new File("off.jpg").getAbsolutePath());
-    private final Icon MUTED = new ImageIcon(new File("sound.jpg").getAbsolutePath()); 
+    private URL obraz1 = getClass().getResource("on.jpg");
+    private URL obraz2 = getClass().getResource("off.jpg");
+    private URL obraz3 = getClass().getResource("sound.jpg");
+    private final Icon ON = new ImageIcon(obraz1);
+    private final Icon OFF = new ImageIcon(obraz2); 
+    private final Icon MUTED = new ImageIcon(obraz3); 
+    private final String PIOSENKA = "OriandtheBlindForest-CallingOut.wav";
     private JPanel liniaG, liniaD;
     private JLabel lProducent, lKonsument;
     private JLabel lWyprodukowano, lSkonsumowano;
@@ -147,7 +152,7 @@ class Okno extends JFrame implements ActionListener{
         lKonsumpcja.setBounds(630, 300, 75, 50);
         add(lKonsumpcja);
         
-         muzyka = new Muzyka("OriandtheBlindForest-CallingOut.wav");
+         muzyka = new Muzyka(PIOSENKA);
  
         setSize(700,400);;
         setResizable(false);
