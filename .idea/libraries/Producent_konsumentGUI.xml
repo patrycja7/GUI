@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Producent-konsumentGUI">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/build/classes/ProducentKonsumentGUI/Producent-konsumentGUI.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
