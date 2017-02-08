@@ -13,12 +13,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.SwingWorker;
-
 
 class Okno extends JFrame implements ActionListener{
 
-    public static Produkt produkt;
+    public static RysowanieProduktow produkt;
     public static JLabel lProdukcja,lKonsumpcja; 
     public static Kwadrat kwadrat;
     private JLabel lIloscP, lIloscK;
@@ -37,7 +35,7 @@ class Okno extends JFrame implements ActionListener{
     private JLabel lProducent, lKonsument;
     private JLabel lWyprodukowano, lSkonsumowano;
     private JLabel lNapisP,lNapisK;
-    private int klik = 0;
+    private boolean klik;
     private Muzyka muzyka;
     
     public  Okno() {
@@ -89,7 +87,7 @@ class Okno extends JFrame implements ActionListener{
         kwadrat.setBounds(25, 40, 40, 55);
 	add(kwadrat);
               
-        produkt = new Produkt();
+        produkt = new RysowanieProduktow();
         produkt.setBounds(85, 40, 500, 30);
         add(produkt);
                  
@@ -154,7 +152,7 @@ class Okno extends JFrame implements ActionListener{
         
          muzyka = new Muzyka(PIOSENKA);
  
-        setSize(700,400);;
+        setSize(700,400);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Producent/Konsument GUI");
@@ -180,18 +178,18 @@ class Okno extends JFrame implements ActionListener{
         else if (source == bDzwiek)
         {
             
-            if(klik == 0)
+            if(klik == false)
             {
                 bDzwiek.setIcon(ON);
                 muzyka.przygotuj();
                 muzyka.start();
-                klik = 1;   
+                klik = true;   
             }
             else
             {  
                bDzwiek.setIcon(OFF);            
                muzyka.stop();
-               klik = 0;
+               klik = false;
             }
         }
         else if(source == bWyjdz)

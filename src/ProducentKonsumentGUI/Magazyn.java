@@ -9,13 +9,13 @@ public class Magazyn {
     public static Color kolor;
     private final int MAX = 19; 
     public static int wyprodukowano = 0, skonsumowano = 0;
-    private String tekst = "lol";
+    
     public void skonsumuj(){
         synchronized(polka){
             try{    
                 while ( polka.isEmpty() )
                 {
-                     Okno.taPole.append("polka pusta, konsument czeka  \n");
+                    Okno.taPole.append("polka pusta, konsument czeka\n");
                     polka.wait();    
                 }
                 Thread.sleep((long)(Math.random() * 2000));  

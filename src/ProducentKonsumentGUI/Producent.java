@@ -10,6 +10,7 @@ public class Producent extends Thread {
         polka = p;         
     }
     
+    @Override
     public void run(){
         
        while(true)

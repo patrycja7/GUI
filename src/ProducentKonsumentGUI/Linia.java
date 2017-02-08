@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 public class Linia extends JPanel{
+    @Override
     public void paint(Graphics g)
      {
          Dimension d = this.getSize();
